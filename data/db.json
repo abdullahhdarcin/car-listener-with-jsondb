@@ -1,0 +1,14 @@
+{
+  "cars": [
+    {
+      "id": 1,
+      "title": "Sahibinden satılık Opel",
+      "carhp": "2.0",
+      "caryear": "2021",
+      "geartype": "Manuel",
+      "carlink": "...",
+      "carimage":"araba.jpg",
+      "islive": true
+    }
+  ]
+}
