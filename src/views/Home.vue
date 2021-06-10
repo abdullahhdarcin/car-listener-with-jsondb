@@ -1,23 +1,26 @@
 <template>
-  <div class="home">
-    <div v-if="cars.length">
-      <div v-for="car in cars" :key="car.id">
-        <SingleCar :car="car" @delete="handleDelete" @islive="handleLive"/>
-      </div>
-    </div>
+    <div class="home">
+      <FilterNav @filterChange="current= $event" :current="current" />
+        <div v-if="cars.length">
+          <div :id="car.id" v-for="car in filteredAds" :key="car.id">
+            <SingleCar :car="car" @delete="handleDelete" @islive="handleLive"/>
+          </div>
+        </div>
   </div>
 </template>
 
 <script>
 import SingleCar from '../components/SingleCar.vue'
+import FilterNav from '../components/FilterNav.vue'
 
 
 export default {
   name: 'Home',
-  components: { SingleCar },
+  components: { SingleCar,FilterNav },
   data(){
     return{
-      cars:[]
+      cars:[],
+      current: 'all'
     }
   },
   mounted(){
@@ -38,6 +41,26 @@ export default {
       })
       p.islive = !p.islive
     }
+  },
+  computed: {
+    filteredAds(){
+      if(this.current === 'all'){
+        return this.cars.filter(car=> car.id)
+      }
+      if(this.current === 'Sahibindencom_Ads'){
+          return this.cars.filter(car=> car.sites==='sahibinden')
+      }
+      if(this.current === 'Other_Ads'){
+        return this.cars.filter(car=> car.sites==='others')
+        }
+      if(this.current === 'Arabamcom_Ads'){
+        return this.cars.filter(car=> car.sites==='arabam')
+        }     
+               
+      }
   }
 }
 </script>
+
+<style>
+</style>

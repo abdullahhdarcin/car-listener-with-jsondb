@@ -1,35 +1,45 @@
+
 <template>
-  <div class="car" :class="{islive:car.islive}">
-      <div class="actions">
-              <h3 @click="showDetails=!showDetails">{{car.title}}</h3>
+        <div class="car" :class="{islive:car.islive}">
+            <div class="actions">
+          <h3 class="handle" @click="showDetails=!showDetails">{{car.title}}</h3>
               <div class="icons">
-                  <span class="material-icons">edit</span>
+                  <router-link :to="{name:'EditCar', params:{id: car.id}}">
+                      <span class="material-icons">edit</span>
+                  </router-link>
                   <span @click="deleteCarListen" class="material-icons">delete</span>
                   <span v-if="islive=true" @click="isLive" class="material-icons tick" >hdr_strong</span>
               </div>
           <div v-if="showDetails" class="details">
-                    <p><b>Marka :</b> {{car.brand}}</p> &nbsp;&nbsp;&nbsp;
-                    <p><b>Model :</b> {{car.model}}</p> &nbsp;&nbsp;&nbsp;
-                    <p><b>Güç :</b> {{car.carhp}}</p>&nbsp;&nbsp;&nbsp;
-                    <p><b>Araç Yılı :</b> {{car.caryear}}</p>&nbsp;&nbsp;
-                    <p><b>Vites Tipi :</b> {{car.geartype}}</p>&nbsp;&nbsp;
-                    <p><b>Araç Linki :</b> {{car.carlink}}</p>&nbsp;&nbsp;
-                    <p>{{car.islive}}</p>
+                    <div><p><b>Marka :</b> {{car.brand}}</p> &nbsp;&nbsp;&nbsp;</div>
+                    <div><p><b>Model :</b> {{car.model}}</p> &nbsp;&nbsp;&nbsp;</div>
+                    <div><p><b>Güç :</b> {{car.carhp}}</p>&nbsp;&nbsp;&nbsp;</div>
+                    <div><p><b>Araç Yılı :</b> {{car.caryear}}</p>&nbsp;&nbsp;</div>
+                    <div><p><b>Vites Tipi :</b> {{car.geartype}}</p>&nbsp;&nbsp;</div>
+                    <div><p><b>Araç Linki :</b> {{car.carlink}}</p>&nbsp;&nbsp;</div>
             </div>
-          </div>
+        </div>
       </div>
 </template>
 
 <script>
+import draggable from 'vuedraggable'
 
 export default {
     props:['car'],
+    components: { draggable },
     data(){
         return{
             showDetails: false,
             uri: 'http://localhost:3000/cars/' + this.car.id
         }
     },
+  mounted(){
+    fetch('http://localhost:3000/cars')
+    .then(res => res.json())
+    .then(data => this.list = data )
+    .catch(err => console.log(err.message))
+  },
     methods:{
         deleteCarListen(){
             fetch(this.uri,{method: 'DELETE'})
@@ -45,6 +55,14 @@ export default {
                 this.$emit('islive', this.car.id)
             }).catch(err=>console.log(err)) 
              
+        },
+        adslive(){
+            if(islive=true){
+               return this.live
+            }
+            else{
+                return this.islive='Yayında'
+            }
         }
     }
 }
@@ -58,6 +76,8 @@ export default {
     border-radius: 4px;
     box-shadow: 1px 2px 3px rgba(0,0,0,0.05);
     border-left: 4px solid rgb(175, 9, 9);
+    z-index: 9;
+    
 }
 
 h3{
@@ -65,15 +85,17 @@ h3{
 }
 
 .actions{
-    display: flex;
+    
     justify-content: space-between;
     align-items: center;
 }
 
 .material-icons{
     margin-left: 10px;
-    right: 0px;
+    position: relative;
+    float: right;
     cursor: pointer;
+    bottom: 30px;
 }
 
 .material-icons:hover{
@@ -88,4 +110,11 @@ h3{
     color : #00ce89;
 }
 
+.details{
+    top: 15px;
+    justify-content: space-between;
+    position: relative;
+    align-items: center;
+    margin-top: 15px;
+}
 </style>

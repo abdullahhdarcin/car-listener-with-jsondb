@@ -12,11 +12,12 @@
 
       <label>Model:</label>
       <select v-model="model">
+        
         <option value="Fiat">Egea</option>
         <option value="Opel">Opel</option>
         <option value="Mercedes">Mercedes</option>
         <option value="Audi">Audi</option>
-      </select>
+      </select> 
       
       <label>Car HP:</label>
       <select v-model="carhp">
@@ -34,36 +35,50 @@
         <option value="2021">2021</option>
       </select>
 
-       <label>Gear Type:</label>
+      <label>Gear Type:</label>
       <select v-model="geartype">
         <option value="Manuel">Manuel</option>
         <option value="Otomatik">Otomatik</option>
       </select>
 
-      <input type="file" required>
-
-      
       <label>Car Link:</label><input type="text" v-model="carlink" required>
-      <button>Add New Car</button>
+
+      <!-- <label>Website:</label>
+      <div class="sites">
+        
+        <input  type="radio"  value="sahibinden" id='sahibinden' v-model="sites" @click="select" name="sites" />
+        <label for="sahibinden">sahibinden.com</label>
+        <input type="radio"  value="arabam" id='arabam' v-model="sites" name="sites" />
+        <label for="arabam">arabam.com</label>
+        <input type="radio"  value="others" id='others' v-model="sites" name="sites" />
+        <label for="others">Others</label>
+      </div> -->
+
+      <button @click="carSites">Add New Car</button>
   </form>
 </template>
 
 <script>
 import SingleCar from '../components/SingleCar.vue'
+import axios from 'axios'
+import { computed } from 'vue'
+
 
 
 export default {
     components: { SingleCar },
     data(){
+      
     return{
       cars:[],
       title: '',
-      brand:'Please select one.',
-      model:'Please select one.',
+      brand:[],
+      model:[],
       carhp:'',
       caryear:'',
       geartype:'',
-      carlink:''
+      carlink:'',
+      sites:''
     }
   },
   mounted(){
@@ -83,6 +98,7 @@ export default {
               geartype:this.geartype,
               carlink: this.carlink,
               islive: false,
+              sites:this.sites,
           }
 
           fetch('http://localhost:3000/cars',{
@@ -92,8 +108,20 @@ export default {
           }).then(()=>{
               this.$router.push('/')
           }).catch((err)=>console.log(err))
+
+        },
+        carSites(){
+            if(this.carlink.startsWith("https://www.sahibinden" || "www.sahibinden" || "http://www.sahibinden")){
+            return this.sites='sahibinden'
+            }
+            else if (this.carlink.startsWith("https://www.arabam" || "www.arabam" || "http://www.arabam")){
+              return this.sites='arabam'
+            }
+            else {
+              return this.sites='others'
+            }
+        }
       }
-  }
 }
 </script>
 
@@ -157,5 +185,32 @@ option{
     font-size: 14px;
 }
 
+label{
+  color: rgb(90, 90, 90);
+  display: inline-block;
+  margin: 25px 0 15px;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: bold;
+}
+
+input, select{
+  display: block;
+  padding: 6px 6px;
+  width: 100%;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  color: rgb(46, 45, 45);
+}
+
+input[type="radio"] {
+  display: inline-block;
+  width: 16px;
+  margin: 0 10px 0 0;
+  position: relative;
+  top: 14px;
+}
 
 </style>

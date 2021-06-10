@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import AddCar from '../views/AddCar.vue'
+import EditCar from '../views/EditCar.vue'
 
 const routes = [
   {
@@ -12,6 +13,12 @@ const routes = [
     path: '/add',
     name: 'AddCar',
     component: AddCar
+  },
+  {
+    path: '/cars/:id',
+    name: 'EditCar',
+    component: EditCar,
+    props: true
   }
 ]
 
