@@ -11,23 +11,22 @@
                   <span v-if="islive=true" @click="isLive" class="material-icons tick" >hdr_strong</span>
               </div>
           <div v-if="showDetails" class="details">
-                    <div><p><b>Marka :</b> {{car.brand}}</p> &nbsp;&nbsp;&nbsp;</div>
+                    <div><p><b>Brand :</b> {{car.brand}}</p> &nbsp;&nbsp;&nbsp;</div>
                     <div><p><b>Model :</b> {{car.model}}</p> &nbsp;&nbsp;&nbsp;</div>
-                    <div><p><b>Güç :</b> {{car.carhp}}</p>&nbsp;&nbsp;&nbsp;</div>
-                    <div><p><b>Araç Yılı :</b> {{car.caryear}}</p>&nbsp;&nbsp;</div>
-                    <div><p><b>Vites Tipi :</b> {{car.geartype}}</p>&nbsp;&nbsp;</div>
-                    <div><p><b>Araç Linki :</b> {{car.carlink}}</p>&nbsp;&nbsp;</div>
+                    <div><p><b>HP :</b> {{car.carhp}}</p>&nbsp;&nbsp;&nbsp;</div>
+                    <div><p><b>Year :</b> {{car.caryear}}</p>&nbsp;&nbsp;</div>
+                    <div><p><b>Gear Type :</b> {{car.geartype}}</p>&nbsp;&nbsp;</div>
+                    <div><p><b>Link :</b> {{car.carlink}}</p>&nbsp;&nbsp;</div>
+                    <div><p><b>Price :</b> {{car.carprice}} ₺</p>&nbsp;&nbsp;</div>
             </div>
         </div>
       </div>
 </template>
 
 <script>
-import draggable from 'vuedraggable'
 
 export default {
     props:['car'],
-    components: { draggable },
     data(){
         return{
             showDetails: false,

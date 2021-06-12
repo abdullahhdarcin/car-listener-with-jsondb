@@ -3,20 +3,36 @@
       <label>Title:</label><input type="text" v-model="title" required>
 
       <label>Brand:</label>
-      <select v-model="brand">
-        <option value="Fiat">Fiat</option>
-        <option value="Opel">Opel</option>
-        <option value="Mercedes">Mercedes</option>
-        <option value="Audi">Audi</option>
-      </select>
-
-      <label>Model:</label>
-      <select v-model="model">
-        <option value="Fiat">Egea</option>
-        <option value="Opel">Opel</option>
-        <option value="Mercedes">Mercedes</option>
-        <option value="Audi">Audi</option>
-      </select>
+    <select v-model="brand">
+      <option value="Fiat">Fiat</option>
+      <option value="Opel">Opel</option>
+      <option value="Mercedes">Mercedes</option>
+      <option value="Audi">Audi</option>
+    </select>
+    <label>Model:</label>
+    <select v-model="model" v-if="brand === 'Fiat'">
+      <option value="Fiat 500">Fiat 500</option>
+      <option value="Doblo">Doblo</option>
+      <option value="Fiorino">Fiorino</option>
+    </select>
+    <select v-model="model" v-if="brand === 'Opel'">
+      <option value="Corsa">Corsa</option>
+      <option value="Astra">Astra</option>
+      <option value="Insignia">Insignia</option>
+    </select>
+    <select v-model="model" v-if="brand === 'Mercedes'">
+      <option value="CLS">CLS</option>
+      <option value="A Serisi">A Serisi</option>
+      <option value="B Serisi">A Serisi</option>
+      <option value="CLA Serisi">CLA Serisi</option>
+    </select>
+    <select v-model="model" v-if="brand === 'Audi'">
+      <option value="A3">A3</option>
+      <option value="A4">A4</option>
+      <option value="TT">TT</option>
+      <option value="RS">RS</option>
+      <option value="Q8">Q8</option>
+    </select>
       
       <label>Car HP:</label>
       <select v-model="carhp">
@@ -40,6 +56,7 @@
         <option value="Otomatik">Otomatik</option>
       </select>
 
+      <label>Car Price:</label><input type="number" v-model.number="carprice" required />
       <!-- <label>Website:</label>
       <div class="sites">
         <input type="radio"  value="sahibinden" id='sahibinden' v-model="sites" name="sites" />
@@ -51,25 +68,30 @@
       </div> -->
 
       <label>Car Link:</label><input type="text" v-model="carlink" required>
-      <button @click="carSites">Update Car</button>
+      <button @click="carSites">Update Ad</button>
   </form>
 </template>
 
 <script>
+import SingleCar from "../components/SingleCar.vue";
+import axios from "axios";
+import { computed } from "vue";
+
 export default {
     props:['id'],
     data(){
         return{
         cars:[],
         title: '',
-        brand:'',
-        model:'',
+        brand:[],
+        model:[],
         carhp:'',
         caryear:'',
         geartype:'',
         carlink:'',
         sites:'',
-        uri:'http://localhost:3000/cars/' + this.id
+        uri:'http://localhost:3000/cars/' + this.id,
+        carprice:null
         }
     },
     mounted(){
@@ -82,6 +104,7 @@ export default {
             this.geartype = data.geartype
             this.carlink = data.carlink
             this.sites = data.sites
+            this.carprice = data.carprice
         })
     },
     methods:{
@@ -97,7 +120,8 @@ export default {
             caryear:this.caryear,
             geartype:this.geartype,
             carlink:this.carlink,
-            sites:this.sites
+            sites:this.sites,
+            carprice:this.carprice
             })
         }).then(()=>{
               this.$router.push('/')

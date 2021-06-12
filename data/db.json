@@ -1,40 +1,56 @@
 {
   "cars": [
     {
-      "id": 1,
-      "title": "Sahibinden satılık Opel",
+      "title": "Fiyat 1 ",
+      "brand": "Audi",
+      "model": "TT",
       "carhp": "2.0",
-      "caryear": "2021",
-      "geartype": "Manuel",
-      "carlink": "https://www.arabam.com/",
-      "islive": true,
-      "brand": "Mercedes",
-      "model": "Mercedes",
-      "sites": "arabam"
+      "caryear": "2019",
+      "geartype": "Otomatik",
+      "carlink": "https://www.sahibinden.com/",
+      "islive": false,
+      "sites": "sahibinden",
+      "carprice": 1,
+      "id": 1
     },
     {
-      "title": "asd 123",
-      "brand": "Audi",
-      "model": "Opel",
+      "title": "Fiyat 2 ",
+      "brand": "Mercedes",
+      "model": "B Serisi",
+      "carhp": "1.4",
+      "caryear": "2020",
+      "geartype": "Otomatik",
+      "carlink": "https://www.sahibinden.com/",
+      "islive": false,
+      "sites": "sahibinden",
+      "carprice": 2,
+      "id": 2
+    },
+    {
+      "title": "Fiyat 3 ",
+      "brand": "Mercedes",
+      "model": "B Serisi",
       "carhp": "3.0",
       "caryear": "2020",
-      "geartype": "Manuel",
-      "carlink": "asd 222",
-      "islive": true,
-      "id": 2,
-      "webs": "arabam.com"
+      "geartype": "Otomatik",
+      "carlink": "https://www.sahibinden.com/",
+      "islive": false,
+      "sites": "sahibinden",
+      "carprice": 3,
+      "id": 3
     },
     {
-      "title": "q",
-      "brand": "Opel",
-      "model": "Mercedes",
-      "carhp": "2.0",
-      "caryear": "2021",
-      "geartype": "Manuel",
-      "carlink": "q",
+      "title": "Fiyatsız",
+      "brand": "Audi",
+      "model": "TT",
+      "carhp": "3.0",
+      "caryear": "2020",
+      "geartype": "Otomatik",
+      "carlink": "https://www.sahibinden.com/",
       "islive": false,
-      "sites": "others",
-      "id": 3
+      "sites": "sahibinden",
+      "carprice": 0,
+      "id": 4
     }
   ]
 }
